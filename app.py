@@ -66,7 +66,7 @@ def panel():
 def uploaded_file(filename):
     return send_from_directory(UPLOAD_FOLDER, filename)
 
-
+                
 @app.route("/logout")
 def logout():
     session.clear()
@@ -76,3 +76,16 @@ def logout():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+@app.route("/download-all")
+def download_all():
+    if not session.get("admin"):
+        return redirect("/admin")
+
+    zip_path = "all_photos.zip"
+
+    with zipfile.ZipFile(zip_path, "w") as zipf:
+        for file in os.listdir(UPLOAD_FOLDER):
+            file_path = os.path.join(UPLOAD_FOLDER, file)
+            zipf.write(file_path, file)
+
+    return send_file(zip_path, as_attachment=True)
