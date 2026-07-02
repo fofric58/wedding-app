@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+</head>
+<body style="font-family:Arial;">
+
+<h2>📂 Yüklenen Fotoğraflar</h2>
+
+<a href="/logout">Çıkış</a>
+<hr>
+
+{% for file in files %}
+    <div style="margin:10px;">
+        <img src="/uploads/{{ file }}" width="200"><br>
+        {{ file }}
+    </div>
+{% endfor %}
+
+</body>
+</html>

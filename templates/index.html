@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Selenay & Ahmet</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: linear-gradient(135deg, #fff8e1, #ffffff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #b8860b;
+        }
+
+        p {
+            font-size: 18px;
+            color: #444;
+        }
+
+        input {
+            display: none;
+        }
+
+        .btn {
+            margin-top: 20px;
+            display: block;
+            background: #b8860b;
+            color: white;
+            padding: 20px;
+            font-size: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        #status {
+            margin-top: 15px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <h1>💍 Selenay & Ahmet</h1>
+    <p>Fotoğraflarınızı yüklemek için aşağıdaki butona basın</p>
+
+    <input type="file" id="files" multiple>
+
+    <label for="files" class="btn">
+        📸 FOTOĞRAF YÜKLE
+    </label>
+
+    <button class="btn" onclick="upload()" style="margin-top:10px;">
+        YÜKLE
+    </button>
+
+    <div id="status"></div>
+
+</div>
+
+<script>
+function upload() {
+    let files = document.getElementById("files").files;
+
+    if (files.length === 0) {
+        document.getElementById("status").innerText = "Lütfen fotoğraf seçin";
+        return;
+    }
+
+    let formData = new FormData();
+
+    for (let i = 0; i < files.length; i++) {
+        formData.append("files", files[i]);
+    }
+
+    document.getElementById("status").innerText = "Yükleniyor...";
+
+    fetch("/upload", {
+        method: "POST",
+        body: formData
+    }).then(() => {
+        document.getElementById("status").innerText = "✅ Yüklendi, teşekkür ederiz ❤️";
+    });
+}
+</script>
+
+</body>
+</html>
