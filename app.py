@@ -9,8 +9,8 @@ app = Flask(__name__)
 app.secret_key = "supersecretkey"
 
 UPLOAD_FOLDER = "uploads"
-ADMIN_USER = "admin"
-ADMIN_PASS = "1234"
+ADMIN_USER = "selenay"
+ADMIN_PASS = "1105"
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
